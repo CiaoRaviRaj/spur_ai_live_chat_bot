@@ -1,7 +1,14 @@
 # Spur AI Live Chat
 
-A production-quality AI live chat web application built for the Spur Founding Engineer take-home assignment.
-Designed with **TanStack AI** + **Google Gemini** for efficient streaming and state management.
+**Spur** is an **AI Business Growth Specialist** designed to help e-commerce brands "Sell More, Support Better, and Automate Everything."
+
+This application serves as a unified **Multi-Channel AI Agent** (WhatsApp, Instagram, Facebook, and Web Live Chat) that:
+
+- **Resolves 70% of support queries instantly** via intelligent automation.
+- **Drives Revenue** through WhatsApp broadcasts (80%+ delivery) and comment-to-DM marketing.
+- **Deeply Integrates** with platforms like Shopify, WooCommerce, and Shiprocket to track orders and perform real actions.
+
+Built for the **Spur Founding Engineer take-home assignment**, this project showcases a production-quality implementation using **TanStack AI** + **Google Gemini** for efficient streaming and state management.
 
 ## 🚀 Why TanStack AI?
 
