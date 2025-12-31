@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Spur AI Live Chat
 
-## Getting Started
+A production-quality AI live chat web application built for the Spur Founding Engineer take-home assignment.
+Designed with **TanStack AI** + **Google Gemini** for efficient streaming and state management.
 
-First, run the development server:
+## 🚀 Why TanStack AI?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+We chose TanStack AI to optimize developer velocity and ensure correctness in handling the complexities of LLM interactions:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Unified State**: Manages streaming, loading, and error states out of the box.
+- **Protocol Agnostic**: Uses standard Server-Sent Events (SSE) for robust streaming.
+- **Persistence**: Easily integrates with our database to save chat history.
+- **Performance**: Optimized for speed and efficiency.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🧱 Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework**: Next.js 16 (App Router)
+- **AI**: TanStack AI + Google Gemini (`gemini-2.5-flash`)
+- **Database**: PostgreSQL (via Prisma 5)
+- **Cache**: Redis (via Docker)
+- **Auth**: Custom JWT (Email/Password) with `bcryptjs` + `jose`
+- **Styling**: Tailwind CSS v4
+- **Version Control**: Git
 
-## Learn More
+## 🛠️ Setup & Run
 
-To learn more about Next.js, take a look at the following resources:
+### Prerequisites
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Node.js v22 (managed via `.nvmrc`)
+- Docker & Docker Compose
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Steps
 
-## Deploy on Vercel
+1. **Clone & Install**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Environment Setup**
+   The project includes a pre-configured `.env` file for local development using the Docker containers.
+   **Important**: Add your Google Gemini API Key to `.env`:
+
+   ```env
+   GEMINI_API_KEY="your-api-key-here"
+   ```
+
+3. **Start Infrastructure**
+
+   ```bash
+   docker compose up -d
+   ```
+
+   _Runs Postgres on port 5440 and Redis on 6380._
+
+4. **Initialize Database**
+
+   ```bash
+   npx prisma migrate dev
+   ```
+
+5. **Run Application**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000).
+
+## 🧠 Design Decisions
+
+### Architecture
+
+We used a **Fullstack Next.js** architecture rather than a separate Node.js backend to simplify deployment and leverage the serverless capabilities of API Routes. This fits perfectly with TanStack AI's lighter weight backend requirements.
+
+### Authentication
+
+Implemented a custom secure JWT solution instead of NextAuth to demonstrate core understanding of auth flows (hashing, signing, cookie security). Authentication middleware protects all chat routes.
+
+### AI Model Strategy
+
+Configured with **Gemini 2.5 Flash** for low latency and high throughput. The System Prompt injects store policies (Shipping, Returns) directly into the context.
+
+## 🔮 Future Improvements
+
+- **Optimistic Updates**: Improve UI perception of speed.
+- **Tool Calling**: Allow AI to fetch real-time order status from DB.
+- **RAG**: Implement vector search (pgvector) for larger knowledge bases.
